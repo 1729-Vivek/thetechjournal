@@ -1,31 +1,41 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
 import BlogCard from "@/components/BlogCard";
+import FeaturedPost from "@/components/FeaturedPost";
+import Trending from "@/components/Trending";
+import Newsletter from "@/components/Newsletter";
 import { posts } from "@/lib/posts";
 
 export default function Home() {
+
+  const featured = posts[0];
+  const rest = posts.slice(1);
+
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div>
 
       <Navbar />
 
-      <Hero />
+      <main className="max-w-7xl mx-auto px-6 py-12">
 
-      <section className="max-w-6xl mx-auto px-6 py-16">
+        <FeaturedPost post={featured} />
 
-        <h2 className="text-3xl font-bold mb-10">
-          Latest Articles
-        </h2>
+        <div className="grid md:grid-cols-4 gap-10 mt-16">
 
-        <div className="grid md:grid-cols-3 gap-8">
+          <div className="md:col-span-3 grid md:grid-cols-2 gap-8">
 
-          {posts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
+            {rest.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+
+          </div>
+
+          <Trending posts={posts} />
 
         </div>
 
-      </section>
+      </main>
+
+      <Newsletter />
 
     </div>
   );
